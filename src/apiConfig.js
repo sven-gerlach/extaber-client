@@ -1,6 +1,6 @@
 let apiUrl
 const apiUrls = {
-  production: 'https://extaber-api.herokuapp.com/',
+  production: 'https://extaber-api.herokuapp.com',
   development: 'http://localhost:8000'
 }
 
