@@ -5,12 +5,18 @@ import { withRouter } from 'react-router-dom'
 class Article extends Component {
   handleDelete = event => {
     event.preventDefault()
-    console.log(this.props)
     const token = this.props.user.token
     const articleID = this.props.article.id
     deleteMyArticleFromAPI(token, articleID)
       .then(this.props.updateMyArticles)
       .catch(console.error)
+  }
+
+  handleUpdate = event => {
+    event.preventDefault()
+    // redirect to article specific route for updating
+    const articleID = this.props.article.id
+    this.props.history.push(`/update-article/${articleID}`)
   }
 
   render () {
@@ -29,7 +35,7 @@ class Article extends Component {
     const buttonJSX = (
       <div>
         <button type='button' onClick={this.handleDelete}>Delete</button>
-        <button type='button'>Update</button>
+        <button type='button' onClick={this.handleUpdate}>Update</button>
       </div>
     )
 

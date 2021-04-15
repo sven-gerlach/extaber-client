@@ -8,6 +8,7 @@ class LandingFrame extends Component {
       <Container className='mt-3'>
         <Col>
           <Row>
+            <h3>Articles</h3>
             <Articles />
           </Row>
         </Col>

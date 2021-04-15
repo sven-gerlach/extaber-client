@@ -14,6 +14,7 @@ import ChangePassword from './components/ChangePassword/ChangePassword'
 import LandingFrame from './components/LandingFrame/LandingFrame'
 import Create from './components/Create/Create'
 import MyArticles from './components/MyArticles/MyArticles'
+import UpdateArticle from './components/UpdateArticle/UpdateArticle'
 
 class App extends Component {
   constructor (props) {
@@ -78,6 +79,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/my-articles' render={() => (
             <MyArticles msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/update-article/:id' render={() => (
+            <UpdateArticle msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>

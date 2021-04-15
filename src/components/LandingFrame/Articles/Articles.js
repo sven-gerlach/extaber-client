@@ -33,8 +33,8 @@ class Articles extends Component {
     if (!articles) {
       return (
         <Fragment>
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
+          <Spinner animation='border' role='status'>
+            <span className='sr-only'>Loading...</span>
           </Spinner>
         </Fragment>
       )

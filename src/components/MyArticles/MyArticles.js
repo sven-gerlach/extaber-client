@@ -62,6 +62,7 @@ class MyArticles extends Component {
       <Container className='mt-3'>
         <Col>
           <Row>
+            <h3>My Articles</h3>
             { myArticlesJSX }
           </Row>
         </Col>

@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { sendArticleToAPI } from '../../api/articles'
+import {
+  sendArticleToAPI,
+  sendUpdatedArticleToAPI
+} from '../../api/articles'
+import { withRouter } from 'react-router-dom'
 
 class Create extends Component {
   constructor (props) {
@@ -15,6 +19,22 @@ class Create extends Component {
     }
   }
 
+  componentDidMount () {
+    if (this.props.match.path.includes('update-article')) {
+      console.log(this.props)
+      const { id, imgUrl, title, subTitle, body } = this.props.article
+      this.setState({
+        article: {
+          id: id,
+          imgUrl: imgUrl,
+          title: title,
+          subTitle: subTitle,
+          body: body
+        }
+      })
+    }
+  }
+
   handleChange = event => {
     this.setState({
       article: {
@@ -24,17 +44,32 @@ class Create extends Component {
     })
   }
 
-  handleSubmit = event => {
+  handleCreate = event => {
     event.preventDefault()
     const token = this.props.user.token
     const article = this.state.article
     sendArticleToAPI(article, token)
-      .then(console.log)
+      .then(() => {
+        this.props.history.push('/my-articles')
+      })
+      .catch(console.error)
+  }
+
+  handleUpdate = event => {
+    event.preventDefault()
+    const token = this.props.user.token
+    const article = this.state.article
+    sendUpdatedArticleToAPI(article, token)
+      .then(() => {
+        this.props.history.push('/my-articles')
+      })
       .catch(console.error)
   }
 
   render () {
     const { article } = this.state
+    console.log(this.props)
+    const handleSubmit = this.props.match.path === '/create' ? this.handleCreate : this.handleUpdate
     return (
       <Container className='mt-3'>
         <Col>
@@ -74,7 +109,7 @@ class Create extends Component {
             />
             <button
               type='button'
-              onClick={this.handleSubmit}
+              onClick={handleSubmit}
             >
               Submit
             </button>
@@ -85,4 +120,4 @@ class Create extends Component {
   }
 }
 
-export default Create
+export default withRouter(Create)
