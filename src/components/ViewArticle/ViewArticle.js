@@ -3,7 +3,7 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import { getArticleFromAPI } from '../../api/articles'
 import { getCommentsFromAPI } from '../../api/comments'
-import { sendVoteToAPI } from '../../api/votes'
+import { sendVoteOnArticleToAPI } from '../../api/votes'
 import camelcaseObjectDeep from 'camelcase-object-deep'
 import Spinner from 'react-bootstrap/Spinner'
 import CommentInput from './Comments/CommentInput'
@@ -39,6 +39,7 @@ class ViewArticle extends Component {
   getLatestComments = () => {
     // make axios call to api to retrieve all comments for this article
     // and store comments array in state
+    console.log('comments updated')
     const articleID = this.props.match.params.id
     getCommentsFromAPI(articleID)
       .then(res => {
@@ -60,7 +61,7 @@ class ViewArticle extends Component {
     } else {
       const token = user.token
       const articleID = this.state.article.id
-      sendVoteToAPI(token, articleID, vote)
+      sendVoteOnArticleToAPI(token, articleID, vote)
         .then(res => {
           console.log(res)
           this.getLatestArticleData()
@@ -123,6 +124,7 @@ class ViewArticle extends Component {
               msgAlert={msgAlert}
               user={user}
               comments={this.state.comments}
+              getLatestComments={this.getLatestComments}
             />
           </Row>
         </Col>

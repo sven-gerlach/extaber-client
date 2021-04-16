@@ -1,7 +1,7 @@
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
-export const sendVoteToAPI = (token, articleID, vote) => {
+export const sendVoteOnArticleToAPI = (token, articleID, vote) => {
   return axios({
     method: 'POST',
     url: apiUrl + '/article-votes/',
@@ -11,6 +11,22 @@ export const sendVoteToAPI = (token, articleID, vote) => {
     data: {
       vote: {
         article: articleID,
+        vote: vote
+      }
+    }
+  })
+}
+
+export const sendVoteOnCommentToAPI = (token, commentID, vote) => {
+  return axios({
+    method: 'POST',
+    url: apiUrl + '/comment-votes/',
+    headers: {
+      'Authorization': `Token ${token}`
+    },
+    data: {
+      vote: {
+        comment: commentID,
         vote: vote
       }
     }
