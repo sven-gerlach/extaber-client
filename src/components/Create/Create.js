@@ -21,7 +21,6 @@ class Create extends Component {
 
   componentDidMount () {
     if (this.props.match.path.includes('update-article')) {
-      console.log(this.props)
       const { id, imgUrl, title, subTitle, body } = this.props.article
       this.setState({
         article: {
@@ -68,7 +67,6 @@ class Create extends Component {
 
   render () {
     const { article } = this.state
-    console.log(this.props)
     const handleSubmit = this.props.match.path === '/create' ? this.handleCreate : this.handleUpdate
     return (
       <Container className='mt-3'>

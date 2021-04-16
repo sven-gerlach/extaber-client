@@ -30,7 +30,6 @@ class UpdateArticle extends Component {
   }
 
   render () {
-    console.log(this.state)
     const { article } = this.state
     if (!article) {
       return (

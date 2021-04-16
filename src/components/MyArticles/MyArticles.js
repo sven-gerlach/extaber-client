@@ -19,7 +19,6 @@ class MyArticles extends Component {
   }
 
   updateMyArticles = () => {
-    console.log(this.props)
     const token = this.props.user.token
     getMyArticlesFromAPI(token)
       .then(res => {
