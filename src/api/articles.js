@@ -18,13 +18,10 @@ export const getMyArticlesFromAPI = token => {
   })
 }
 
-export const getArticleFromAPI = (articleID, token) => {
+export const getArticleFromAPI = articleID => {
   return axios({
     method: 'GET',
-    url: apiUrl + '/articles/' + articleID + '/',
-    headers: {
-      'Authorization': `Token ${token}`
-    }
+    url: apiUrl + '/article/' + articleID + '/'
   })
 }
 

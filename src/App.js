@@ -15,6 +15,7 @@ import LandingFrame from './components/LandingFrame/LandingFrame'
 import Create from './components/Create/Create'
 import MyArticles from './components/MyArticles/MyArticles'
 import UpdateArticle from './components/UpdateArticle/UpdateArticle'
+import ViewArticle from './components/ViewArticle/ViewArticle'
 
 class App extends Component {
   constructor (props) {
@@ -67,6 +68,9 @@ class App extends Component {
           )} />
           <Route exact path='/' render={() => (
             <LandingFrame />
+          )}/>
+          <Route path='/view-article/:id' render={() => (
+            <ViewArticle msgAlert={this.msgAlert} user={user} />
           )}/>
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />

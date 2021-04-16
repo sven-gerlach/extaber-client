@@ -75,6 +75,7 @@ class Create extends Component {
         <Col>
           <Row>
             <h3>Create</h3>
+            {/* todo: consider setting this up a as form element, right now the required attribute is useless */}
             <input
               type='text'
               name='imgUrl'
