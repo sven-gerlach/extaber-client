@@ -3,7 +3,6 @@ import { v4 as uuid } from 'uuid'
 
 class Comments extends Component {
   render () {
-    console.log(this.props.comments)
     return (
       <Fragment>
         {this.props.comments.map(comment => {
@@ -13,6 +12,7 @@ class Comments extends Component {
               <p>{comment.author}</p>
               <p>{comment.netVotes}</p>
               <p>{comment.createdAt}</p>
+              {/* todo: the create and update times are different by the tiniest margin */}
               {/* {comment.createdAt === comment.updatedAt ? '' : <p>{comment.updatedAt}</p>} */}
             </div>
           )

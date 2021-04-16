@@ -6,5 +6,7 @@ export default {
   signOutSuccess: 'Come back soon!',
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
-  signInToComment: 'Only signed-in users can comment on articles.'
+  signInToComment: 'Only signed-in users can comment.',
+  signInToVote: 'Only signed-in users can cast a vote.',
+  alreadyVoted: 'You have already cast a vote. Only one vote may be cast!'
 }

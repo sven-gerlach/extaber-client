@@ -3,10 +3,12 @@ import { Col, Container, Row } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import { getArticleFromAPI } from '../../api/articles'
 import { getCommentsFromAPI } from '../../api/comments'
+import { sendVoteToAPI } from '../../api/votes'
 import camelcaseObjectDeep from 'camelcase-object-deep'
 import Spinner from 'react-bootstrap/Spinner'
 import CommentInput from './Comments/CommentInput'
 import Comments from './Comments/Comments'
+import messages from '../AutoDismissAlert/messages'
 
 class ViewArticle extends Component {
   constructor (props) {
@@ -46,6 +48,42 @@ class ViewArticle extends Component {
       .catch(console.error)
   }
 
+  handleVote = (event, vote) => {
+    const { user, msgAlert } = this.props
+    if (!user) {
+      // raise msg alerting user that only signed in users are allowed to vote
+      msgAlert({
+        heading: 'You are not signed-in!',
+        message: messages.signInToVote,
+        variant: 'info'
+      })
+    } else {
+      const token = user.token
+      const articleID = this.state.article.id
+      sendVoteToAPI(token, articleID, vote)
+        .then(res => {
+          console.log(res)
+          this.getLatestArticleData()
+          this.getLatestComments()
+        })
+        .catch(err => {
+          if (err.response.status === 400) {
+            msgAlert({
+              heading: 'Oops!',
+              message: messages.alreadyVoted,
+              variant: 'info'
+            })
+          } else if (err.response.status === 403) {
+            msgAlert({
+              heading: 'Oops!',
+              message: err.response.data.detail,
+              variant: 'info'
+            })
+          }
+        })
+    }
+  }
+
   render () {
     if (!this.state.article) {
       return (
@@ -60,7 +98,7 @@ class ViewArticle extends Component {
         </Container>
       )
     }
-    const { title, subTitle, author, imgUrl, body, createdAt, updatedAt } = this.state.article
+    const { title, subTitle, author, imgUrl, body, createdAt, updatedAt, netVotes } = this.state.article
     const { msgAlert, user } = this.props
     return (
       <Container className='mt-3'>
@@ -72,6 +110,9 @@ class ViewArticle extends Component {
             {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
             <p>{createdAt}</p>
             {updatedAt !== createdAt ? <p>{updatedAt}</p> : ''}
+            <p onClick={(event) => this.handleVote(event, +1)}>{'\u25b2'}</p>
+            <p onClick={(event) => this.handleVote(event, 0)}>{netVotes}</p>
+            <p onClick={(event) => this.handleVote(event, -1)}>{'\u25bc'}</p>
             <p>{body}</p>
             <CommentInput
               msgAlert={msgAlert}

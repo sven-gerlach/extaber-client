@@ -17,7 +17,6 @@ class Articles extends Component {
     // make axios call to retrieve the latest articles
     // and store articles in component state
     getArticlesFromAPI()
-      // .then(res => console.log(res.data.articles))
       .then(res => {
         // convert object keys from snake case to camel case
         const articles = camelcaseObjectDeep(res.data.articles, { deep: true })
