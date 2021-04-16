@@ -10,6 +10,13 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 
+// Importing components
+import LandingFrame from './components/LandingFrame/LandingFrame'
+import Create from './components/Create/Create'
+import MyArticles from './components/MyArticles/MyArticles'
+import UpdateArticle from './components/UpdateArticle/UpdateArticle'
+import ViewArticle from './components/ViewArticle/ViewArticle'
+
 class App extends Component {
   constructor (props) {
     super(props)
@@ -59,11 +66,26 @@ class App extends Component {
           <Route path='/sign-in' render={() => (
             <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
           )} />
+          <Route exact path='/' render={() => (
+            <LandingFrame />
+          )}/>
+          <Route path='/view-article/:id' render={() => (
+            <ViewArticle msgAlert={this.msgAlert} user={user} />
+          )}/>
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create' render={() => (
+            <Create msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/my-articles' render={() => (
+            <MyArticles msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/update-article/:id' render={() => (
+            <UpdateArticle msgAlert={this.msgAlert} user={user} />
           )} />
         </main>
       </Fragment>
