@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import {
   sendArticleToAPI,
   sendUpdatedArticleToAPI
 } from '../../api/articles'
 import { withRouter } from 'react-router-dom'
+import styled from 'styled-components'
 
 class Create extends Component {
   constructor (props) {
@@ -69,7 +70,7 @@ class Create extends Component {
     const { article } = this.state
     const handleSubmit = this.props.match.path === '/create' ? this.handleCreate : this.handleUpdate
     return (
-      <Container className='mt-3'>
+      <DivStyled>
         <Col>
           <Row>
             <h3>Create</h3>
@@ -114,9 +115,13 @@ class Create extends Component {
             </button>
           </Row>
         </Col>
-      </Container>
+      </DivStyled>
     )
   }
 }
+
+const DivStyled = styled.div`
+  margin: 90px 10px 0 10px;
+`
 
 export default withRouter(Create)

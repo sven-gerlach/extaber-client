@@ -6,6 +6,7 @@ import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
 import { ButtonStyled } from '../SignIn/SignIn'
+import styled from 'styled-components'
 
 class SignUp extends Component {
   constructor (props) {
@@ -50,7 +51,7 @@ class SignUp extends Component {
     const { email, password, passwordConfirmation } = this.state
 
     return (
-      <div className="row mt-5">
+      <DivStyled className="row mt-5">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           <h4 className='my-4'>Sign Up</h4>
           <Form onSubmit={this.onSignUp}>
@@ -95,9 +96,13 @@ class SignUp extends Component {
             </ButtonStyled>
           </Form>
         </div>
-      </div>
+      </DivStyled>
     )
   }
 }
+
+const DivStyled = styled.div`
+  padding: 0 10px;
+`
 
 export default withRouter(SignUp)

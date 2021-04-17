@@ -48,7 +48,7 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <div className="row mt-5">
+      <DivStyled className="row mt-5">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
           <h4 className='my-4'>Sign In</h4>
           <Form onSubmit={this.onSignIn}>
@@ -81,10 +81,14 @@ class SignIn extends Component {
             </ButtonStyled>
           </Form>
         </div>
-      </div>
+      </DivStyled>
     )
   }
 }
+
+const DivStyled = styled.div`
+  padding: 0 10px;
+`
 
 export const ButtonStyled = styled.button`
   background-color: rgb(126, 132, 107);

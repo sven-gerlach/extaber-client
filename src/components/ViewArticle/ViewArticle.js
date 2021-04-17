@@ -5,17 +5,23 @@ import { getArticleFromAPI } from '../../api/articles'
 import { getCommentsFromAPI } from '../../api/comments'
 import { sendVoteOnArticleToAPI } from '../../api/votes'
 import camelcaseObjectDeep from 'camelcase-object-deep'
+import { getFormattedDateTime } from '../../utils/utils'
 import Spinner from 'react-bootstrap/Spinner'
 import CommentInput from './Comments/CommentInput'
 import Comments from './Comments/Comments'
 import messages from '../AutoDismissAlert/messages'
+import styled from 'styled-components'
+import speechBubble from '../../assets/img/Speech_bubble.png'
+import heart from '../../assets/img/Heart.svg'
+import VotePanel from './VotePanel/VotePanel'
 
 class ViewArticle extends Component {
   constructor (props) {
     super(props)
     this.state = {
       article: null,
-      comments: []
+      comments: [],
+      isVotePanelDisplayed: false
     }
   }
 
@@ -84,6 +90,14 @@ class ViewArticle extends Component {
     }
   }
 
+  invertVotePanel = () => {
+    this.setState(prevState => {
+      return {
+        isVotePanelDisplayed: !prevState.isVotePanelDisplayed
+      }
+    })
+  }
+
   render () {
     if (!this.state.article) {
       return (
@@ -98,21 +112,30 @@ class ViewArticle extends Component {
         </Container>
       )
     }
-    const { title, subTitle, author, imgUrl, body, createdAt, updatedAt, netVotes } = this.state.article
+
+    const { title, subTitle, author, imgUrl, commentCount, body, createdAt, updatedAt, netVotes } = this.state.article
     const { msgAlert, user } = this.props
     return (
-      <Container className='mt-3'>
+      <ContainerStyled>
         <Col>
           <Row>
-            <h4>{title}</h4>
-            {subTitle === '' ? '' : <h6>{subTitle}</h6>}
-            <p>{author}</p>
+            <h4 className='title'>{title}</h4>
+            {subTitle === '' ? '' : <h6 className='sub-title'>{subTitle}</h6>}
+            <p className='author'>{author}</p>
+            <div className='vote-comment-time'>
+              <p>{getFormattedDateTime(createdAt)}</p>
+              {updatedAt !== createdAt ? <p>Updated: {getFormattedDateTime(updatedAt)}</p> : ''}
+              <img src={heart} alt='heart icon' onClick={this.invertVotePanel} />
+              <VotePanel
+                invertVotePanel={this.invertVotePanel}
+                isVotePanelDisplayed={this.state.isVotePanelDisplayed}
+                handleVote={this.handleVote}
+              />
+              <p>{netVotes}</p>
+              <img src={speechBubble} alt='speech bubble icon' />
+              <p>{commentCount}</p>
+            </div>
             {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
-            <p>{createdAt}</p>
-            {updatedAt !== createdAt ? <p>{updatedAt}</p> : ''}
-            <p onClick={(event) => this.handleVote(event, +1)}>{'\u25b2'}</p>
-            <p onClick={(event) => this.handleVote(event, 0)}>{netVotes}</p>
-            <p onClick={(event) => this.handleVote(event, -1)}>{'\u25bc'}</p>
             <p>{body}</p>
             <CommentInput
               msgAlert={msgAlert}
@@ -127,9 +150,59 @@ class ViewArticle extends Component {
             />
           </Row>
         </Col>
-      </Container>
+      </ContainerStyled>
     )
   }
 }
+
+const ContainerStyled = styled(Container)`
+  margin-top: 90px;
+  
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .title {
+    font-size: 1.625rem;
+    font-weight: bold;
+  }
+  
+  .sub-title {
+    font-size: 19px;
+    color: rgb(102, 92, 88);
+  }
+  
+  .author {
+    margin: 15px 0 0;
+  }
+  
+  .vote-comment-time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    >p {
+      font-size: 14px;
+      color: rgb(102, 92, 88);
+      margin: 0 15px 0 0;
+    }
+    
+    img {
+      height: 13px;
+      width: 13px;
+      margin-right: 4px;
+    }
+    
+    img:hover {
+      fill: red;
+    }
+  }
+  
+  img {
+    width: 100%;
+    padding: 0;
+  }
+`
 
 export default withRouter(ViewArticle)
