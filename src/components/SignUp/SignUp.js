@@ -57,7 +57,7 @@ class SignUp extends Component {
           <Form onSubmit={this.onSignUp}>
             <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 type="email"
                 name="email"
@@ -68,7 +68,7 @@ class SignUp extends Component {
             </Form.Group>
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 name="password"
                 value={password}
@@ -79,7 +79,7 @@ class SignUp extends Component {
             </Form.Group>
             <Form.Group controlId="passwordConfirmation">
               <Form.Label>Password Confirmation</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 name="passwordConfirmation"
                 value={passwordConfirmation}
@@ -103,6 +103,14 @@ class SignUp extends Component {
 
 const DivStyled = styled.div`
   padding: 0 10px;
+`
+
+const FormControlStyled = styled(Form.Control)`
+  :focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+    border-color: rgb(89, 78, 54);
+  }
 `
 
 export default withRouter(SignUp)

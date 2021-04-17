@@ -175,12 +175,14 @@ const ContainerStyled = styled(Container)`
   
   .author {
     margin: 15px 0 0;
+    font-size: 14px;
   }
   
   .vote-comment-time {
     display: flex;
     flex-direction: row;
     align-items: center;
+    height: 25px;
     
     >p {
       font-size: 14px;
@@ -194,14 +196,15 @@ const ContainerStyled = styled(Container)`
       margin-right: 4px;
     }
     
-    img:hover {
-      fill: red;
+    img:first-of-type:hover {
+      cursor: pointer;
     }
   }
   
   img {
     width: 100%;
     padding: 0;
+    margin: 15px 0;
   }
 `
 

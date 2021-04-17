@@ -81,6 +81,7 @@ const Div = styled.div`
   width: 100%;
   :hover {
     background-color: rgb(245, 242, 240);
+    cursor: pointer;
   }
   
   * {
