@@ -27,7 +27,12 @@ class CommentInput extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    const { user, msgAlert } = this.props
+    const {
+      user,
+      msgAlert,
+      getLatestComments,
+      getLatestArticleData
+    } = this.props
 
     if (!user) {
       // alert user that only signed-in users can comment on articles
@@ -42,7 +47,8 @@ class CommentInput extends Component {
       const comment = this.state.comment
       sendCommentToAPI(token, articleID, comment)
         .then(res => {
-          this.props.getLatestArticleData()
+          getLatestArticleData()
+          getLatestComments()
         })
         .catch(console.error)
     }

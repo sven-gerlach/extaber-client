@@ -141,6 +141,7 @@ class ViewArticle extends Component {
               msgAlert={msgAlert}
               user={user}
               getLatestArticleData={this.getLatestArticleData}
+              getLatestComments={this.getLatestComments}
             />
             <Comments
               msgAlert={msgAlert}
