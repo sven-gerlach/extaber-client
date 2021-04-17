@@ -5,7 +5,7 @@ import { signUp, signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import { ButtonStyled } from '../SignIn/SignIn'
 
 class SignUp extends Component {
   constructor (props) {
@@ -50,9 +50,9 @@ class SignUp extends Component {
     const { email, password, passwordConfirmation } = this.state
 
     return (
-      <div className="row">
+      <div className="row mt-5">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Sign Up</h3>
+          <h4 className='my-4'>Sign Up</h4>
           <Form onSubmit={this.onSignUp}>
             <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
@@ -87,12 +87,12 @@ class SignUp extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button
+            <ButtonStyled
               variant="primary"
               type="submit"
             >
               Submit
-            </Button>
+            </ButtonStyled>
           </Form>
         </div>
       </div>

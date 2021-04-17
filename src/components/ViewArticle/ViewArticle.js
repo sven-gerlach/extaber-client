@@ -39,7 +39,6 @@ class ViewArticle extends Component {
   getLatestComments = () => {
     // make axios call to api to retrieve all comments for this article
     // and store comments array in state
-    console.log('comments updated')
     const articleID = this.props.match.params.id
     getCommentsFromAPI(articleID)
       .then(res => {

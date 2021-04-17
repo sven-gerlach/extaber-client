@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import taborDrumImg from '../../assets/img/tabor_img.png'
+import styled from 'styled-components'
 
 const authenticatedOptions = (
   <Fragment>
@@ -25,19 +27,40 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <Navbar bg="primary" variant="dark" expand="md" collapseOnSelect="true">
+  <NavbarStyled bg="light" expand="sm" collapseOnSelect="true" fixed='top'>
     <Navbar.Brand href="#">
+      <img
+        alt="Image of a tabor drum"
+        src={taborDrumImg}
+        width="30"
+        height="30"
+        className="d-inline-block align-top"
+      />&nbsp;
       ExTABER
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
-    <Navbar.Collapse id="basic-navbar-nav">
+    <NavbarToggleStyled id="basic-navbar-nav">
       <Nav className="ml-auto">
         { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
-    </Navbar.Collapse>
-  </Navbar>
+    </NavbarToggleStyled>
+  </NavbarStyled>
 )
+
+const NavbarStyled = styled(Navbar)`
+  background-color: rgb(165, 174, 158);
+  box-shadow: 0 3px 7px 1px rgba(0,0,0,.07),0 -3px 7px 1px rgba(0,0,0,.07);
+  & input, textarea, button {
+    outline-color: rgb(89, 78, 54);
+  }
+`
+
+const NavbarToggleStyled = styled(Navbar.Collapse)`
+  button:focus {
+    border: none;
+  }
+`
 
 export default Header
