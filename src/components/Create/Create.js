@@ -9,9 +9,7 @@ import styled from 'styled-components'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import marked from 'marked'
-// the below two options proved to be more complicated and less light-weight
-// import MdEditor from 'react-markdown-editor-lite'
-// import MarkdownIt from 'markdown-it'
+import DOMPurify from 'dompurify'
 
 class Create extends Component {
   constructor (props) {
@@ -81,7 +79,8 @@ class Create extends Component {
 
   createCleanedMarkup = () => {
     const dirtyHTML = marked(this.state.article.body)
-    return { __html: dirtyHTML }
+    const cleanHTML = DOMPurify.sanitize(dirtyHTML)
+    return { __html: cleanHTML }
   }
 
   render () {
@@ -116,6 +115,7 @@ class Create extends Component {
                 required={false}
                 onChange={this.handleChange}
               />
+              {article.imgUrl ? <div><img src={article.imgUrl} /></div> : '' }
               <Tabs defaultActiveKey="write" id="write">
                 <Tab eventKey="write" title="Write">
                   <textarea
@@ -183,6 +183,11 @@ const FormStyled = styled.form`
   input:nth-child(3) {
     font-size: 14px;
     margin: 5px 0 20px 0;
+  }
+  
+  img {
+    width: 100%;
+    margin-bottom: 25px;
   }
 
   textarea {
