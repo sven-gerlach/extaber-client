@@ -5,7 +5,6 @@ import styled from 'styled-components'
 import { getFormattedDateTime } from '../../../../utils/utils'
 import heart from '../../../../assets/img/Heart.svg'
 import speechBubble from '../../../../assets/img/Speech_bubble.png'
-import ReactMarkdown from 'react-markdown'
 
 class Article extends Component {
   handleSelectArticle = event => {
@@ -63,7 +62,7 @@ class Article extends Component {
           <h4>{title}</h4>
           {subTitle ? <p>{subTitle}</p> : ''}
           {imgUrl ? <div><img src={imgUrl} /></div> : '' }
-          <ReactMarkdown>{body}</ReactMarkdown>
+          <p>{body}</p>
           <VoteCommentCountDiv>
             <img src={heart} alt='heart icon'/>
             <p>{netVotes}</p>

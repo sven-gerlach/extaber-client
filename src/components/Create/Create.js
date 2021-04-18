@@ -6,7 +6,6 @@ import {
 } from '../../api/articles'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
-import ReactMarkdown from 'react-markdown'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 // the below two options proved to be more complicated and less light-weight
@@ -127,7 +126,7 @@ class Create extends Component {
                 </Tab>
                 <Tab eventKey="preview" title="Preview">
                   <PreviewDiv>
-                    <ReactMarkdown>{article.body}</ReactMarkdown>
+                    <p>{article.body}</p>
                   </PreviewDiv>
                 </Tab>
               </Tabs>
