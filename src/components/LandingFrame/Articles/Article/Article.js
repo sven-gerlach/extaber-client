@@ -46,10 +46,10 @@ class Article extends Component {
     } = this.props.article
 
     const buttonJSX = (
-      <div>
-        <button type='button' onClick={this.handleDelete}>Delete</button>
-        <button type='button' onClick={this.handleUpdate}>Update</button>
-      </div>
+      <ButtonContainer>
+        <ButtonStyled type='button' onClick={this.handleDelete}>Delete</ButtonStyled>
+        <ButtonStyled type='button' onClick={this.handleUpdate}>Update</ButtonStyled>
+      </ButtonContainer>
     )
 
     return (
@@ -125,7 +125,7 @@ const VoteCommentCountDiv = styled.div`
     padding: 0;
     margin: 0 20px 0 5px;
   }
-  img {
+  > img {
     height: 13px;
     width: 13px;
   }
@@ -133,6 +133,31 @@ const VoteCommentCountDiv = styled.div`
 
 const Hr = styled.hr`
   margin: 20px 0 0 0;
+`
+
+const ButtonContainer = styled.div`
+  margin-top: 20px;
+`
+
+const ButtonStyled = styled.button`
+  background-color: rgb(126, 132, 107);
+  margin-right: 10px;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  :active, :hover {
+    background-color: rgb(89, 78, 54);
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+  }
 `
 
 export default withRouter(Article)

@@ -2,24 +2,24 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Flip from 'react-reveal/Flip'
 
-class VotePanel extends Component {
+class ArticleVotePanel extends Component {
   handleClick = (event, vote) => {
     const {
-      invertVotePanel,
-      handleVote
+      invertArticleVotePanel,
+      handleArticleVote
     } = this.props
-    handleVote(event, vote)
-    setTimeout(invertVotePanel, 1000)
+    handleArticleVote(event, vote)
+    setTimeout(invertArticleVotePanel, 1000)
   }
 
   render () {
     const {
-      isVotePanelDisplayed
+      isArticleVotePanelDisplayed
     } = this.props
 
     return (
       <div>
-        <Flip top when={isVotePanelDisplayed}>
+        <Flip top when={isArticleVotePanelDisplayed}>
           <VotePanelStyled>
             <p id={'downVote'} onClick={(event) => this.handleClick(event, -1)}>-</p>
             <p id={'removeVote'} onClick={(event) => this.handleClick(event, 0)}>x</p>
@@ -88,4 +88,4 @@ const VotePanelStyled = styled.div`
   }
 `
 
-export default VotePanel
+export default ArticleVotePanel

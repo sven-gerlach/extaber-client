@@ -6,6 +6,11 @@ import {
 } from '../../api/articles'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
+import ReactMarkdown from 'react-markdown'
+import Tabs from 'react-bootstrap/Tabs'
+import Tab from 'react-bootstrap/Tab'
+// import MdEditor from 'react-markdown-editor-lite'
+// import MarkdownIt from 'markdown-it'
 
 class Create extends Component {
   constructor (props) {
@@ -18,6 +23,7 @@ class Create extends Component {
         body: ''
       }
     }
+    this.textAreaRef = React.createRef()
   }
 
   componentDidMount () {
@@ -33,6 +39,12 @@ class Create extends Component {
         }
       })
     }
+    this.textAreaChange(this.textAreaRef.current)
+  }
+
+  textAreaChange (text) {
+    text.style.height = 'auto'
+    text.style.height = text.scrollHeight + 'px'
   }
 
   handleChange = event => {
@@ -73,46 +85,57 @@ class Create extends Component {
       <DivStyled>
         <Col>
           <Row>
-            <h3>Create</h3>
-            {/* todo: consider setting this up a as form element, right now the required attribute is useless */}
-            <input
-              type='text'
-              name='imgUrl'
-              value={article.imgUrl}
-              placeholder='[IMG URL]'
-              required={false}
-              onChange={this.handleChange}
-            />
-            <input
-              type='text'
-              name='title'
-              value={article.title}
-              placeholder='[TITLE]'
-              required={true}
-              onChange={this.handleChange}
-            />
-            <input
-              type='text'
-              name='subTitle'
-              value={article.subTitle}
-              placeholder='[SUB-TITLE]'
-              required={false}
-              onChange={this.handleChange}
-            />
-            <input
-              type='textarea'
-              name='body'
-              value={article.body}
-              placeholder='[body]'
-              required={true}
-              onChange={this.handleChange}
-            />
-            <button
-              type='button'
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+            <FormStyled onSubmit={handleSubmit}>
+              <input
+                type='text'
+                name='title'
+                value={article.title}
+                placeholder='Enter title...'
+                required={true}
+                onChange={this.handleChange}
+              />
+              <input
+                type='text'
+                name='subTitle'
+                value={article.subTitle}
+                placeholder='Enter sub-title...'
+                required={false}
+                onChange={this.handleChange}
+              />
+              <input
+                type='text'
+                name='imgUrl'
+                value={article.imgUrl}
+                placeholder='Enter image url...'
+                required={false}
+                onChange={this.handleChange}
+              />
+              <Tabs defaultActiveKey="write" id="write">
+                <Tab eventKey="write" title="Write">
+                  <textarea
+                    ref={this.textAreaRef}
+                    name='body'
+                    value={article.body}
+                    placeholder='Enter article body using markdown format...'
+                    required={true}
+                    onChange={(event) => {
+                      this.handleChange(event)
+                      this.textAreaChange(event.target)
+                    }}
+                  />
+                </Tab>
+                <Tab eventKey="preview" title="Preview">
+                  <PreviewDiv>
+                    <ReactMarkdown>{article.body}</ReactMarkdown>
+                  </PreviewDiv>
+                </Tab>
+              </Tabs>
+              <button
+                type='submit'
+              >
+                Submit
+              </button>
+            </FormStyled>
           </Row>
         </Col>
       </DivStyled>
@@ -122,6 +145,96 @@ class Create extends Component {
 
 const DivStyled = styled.div`
   margin: 90px 10px 0 10px;
+`
+
+const FormStyled = styled.form`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+  input {
+    border: none;
+    padding: 0.375rem 0.75rem;
+    :focus {
+      outline: none;
+      border: none;
+    }
+  }
+  
+  input:nth-child(1) {
+    font-size: 2em;
+    line-height: 1.1em;
+    font-weight: 700;
+    margin: 5px 0;
+    color: black;
+  }
+  
+  input:nth-child(2) {
+    font-size: 19px;
+    margin: 5px 0;
+  }
+  
+  input:nth-child(3) {
+    font-size: 14px;
+    margin: 5px 0 20px 0;
+  }
+
+  textarea {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    outline: none;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    :focus {
+      outline: none;
+      box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+      border-color: rgb(89, 78, 54);
+    }
+  }
+
+  button {
+    margin: 20px 0;
+    justify-self: flex-end;
+    max-width: 150px;
+    background-color: rgb(126, 132, 107);
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    :active {
+      background-color: rgb(89, 78, 54);
+      outline: none;
+      box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+    }
+  }
+`
+
+const PreviewDiv = styled.div`
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  min-height: 70px;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  outline: none;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
 `
 
 export default withRouter(Create)

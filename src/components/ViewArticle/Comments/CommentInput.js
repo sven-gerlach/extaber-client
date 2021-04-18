@@ -49,6 +49,9 @@ class CommentInput extends Component {
         .then(res => {
           getLatestArticleData()
           getLatestComments()
+          this.setState({
+            comment: ''
+          })
         })
         .catch(console.error)
     }

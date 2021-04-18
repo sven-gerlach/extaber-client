@@ -27,7 +27,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-  <NavbarStyled bg="light" expand="sm" collapseOnSelect="true" fixed='top'>
+  <NavbarStyled bg="light" expand="lg" collapseOnSelect="true" fixed='top'>
     <Navbar.Brand href="#">
       <img
         alt="Image of a tabor drum"

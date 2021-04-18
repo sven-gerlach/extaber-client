@@ -13,7 +13,7 @@ import messages from '../AutoDismissAlert/messages'
 import styled from 'styled-components'
 import speechBubble from '../../assets/img/Speech_bubble.png'
 import heart from '../../assets/img/Heart.svg'
-import VotePanel from './VotePanel/VotePanel'
+import ArticleVotePanel from './VotePanel/ArticleVotePanel'
 
 class ViewArticle extends Component {
   constructor (props) {
@@ -21,7 +21,7 @@ class ViewArticle extends Component {
     this.state = {
       article: null,
       comments: [],
-      isVotePanelDisplayed: false
+      isArticleVotePanelDisplayed: false
     }
   }
 
@@ -54,7 +54,7 @@ class ViewArticle extends Component {
       .catch(console.error)
   }
 
-  handleVote = (event, vote) => {
+  handleArticleVote = (event, vote) => {
     const { user, msgAlert } = this.props
     if (!user) {
       // raise msg alerting user that only signed in users are allowed to vote
@@ -90,10 +90,10 @@ class ViewArticle extends Component {
     }
   }
 
-  invertVotePanel = () => {
+  invertArticleVotePanel = () => {
     this.setState(prevState => {
       return {
-        isVotePanelDisplayed: !prevState.isVotePanelDisplayed
+        isArticleVotePanelDisplayed: !prevState.isArticleVotePanelDisplayed
       }
     })
   }
@@ -125,11 +125,11 @@ class ViewArticle extends Component {
             <div className='vote-comment-time'>
               <p>{getFormattedDateTime(createdAt)}</p>
               {updatedAt !== createdAt ? <p>Updated: {getFormattedDateTime(updatedAt)}</p> : ''}
-              <img src={heart} alt='heart icon' onClick={this.invertVotePanel} />
-              <VotePanel
-                invertVotePanel={this.invertVotePanel}
-                isVotePanelDisplayed={this.state.isVotePanelDisplayed}
-                handleVote={this.handleVote}
+              <img src={heart} alt='heart icon' onClick={this.invertArticleVotePanel} />
+              <ArticleVotePanel
+                invertArticleVotePanel={this.invertArticleVotePanel}
+                isArticleVotePanelDisplayed={this.state.isArticleVotePanelDisplayed}
+                handleArticleVote={this.handleArticleVote}
               />
               <p>{netVotes}</p>
               <img src={speechBubble} alt='speech bubble icon' />
@@ -137,6 +137,7 @@ class ViewArticle extends Component {
             </div>
             {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
             <p>{body}</p>
+            <hr/>
             <CommentInput
               msgAlert={msgAlert}
               user={user}
@@ -158,10 +159,18 @@ class ViewArticle extends Component {
 
 const ContainerStyled = styled(Container)`
   margin-top: 90px;
+  padding: 0;
   
   .row {
     display: flex;
     flex-direction: column;
+    >*:not(hr) {
+      padding: 0 15px 0 15px;
+    }
+    hr {
+      width: 100%;
+      height: 1px;
+    }
   }
   
   .title {
