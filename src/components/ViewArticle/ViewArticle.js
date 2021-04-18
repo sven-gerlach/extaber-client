@@ -13,6 +13,7 @@ import messages from '../AutoDismissAlert/messages'
 import styled from 'styled-components'
 import speechBubble from '../../assets/img/Speech_bubble.png'
 import heart from '../../assets/img/Heart.svg'
+import anonymousHead from '../../assets/img/anonymous-head.png'
 import ArticleVotePanel from './VotePanel/ArticleVotePanel'
 
 class ViewArticle extends Component {
@@ -37,6 +38,7 @@ class ViewArticle extends Component {
       .then(res => {
         // convert obj from snake- to camel-case
         const article = camelcaseObjectDeep(res.data.article, { deep: true })
+        console.log(article)
         this.setState({ article })
       })
       .catch(console.error)
@@ -113,15 +115,33 @@ class ViewArticle extends Component {
       )
     }
 
-    const { title, subTitle, author, imgUrl, commentCount, body, createdAt, updatedAt, netVotes } = this.state.article
+    const {
+      title,
+      subTitle,
+      authorEmail,
+      authorImgUrl,
+      authorUsername,
+      imgUrl,
+      commentCount,
+      body,
+      createdAt,
+      updatedAt,
+      netVotes
+    } = this.state.article
     const { msgAlert, user } = this.props
+    console.log(authorUsername)
+    console.log(authorEmail)
+    console.log(authorImgUrl)
     return (
       <ContainerStyled>
         <Col>
           <Row>
             <h4 className='title'>{title}</h4>
             {subTitle === '' ? '' : <h6 className='sub-title'>{subTitle}</h6>}
-            <p className='author'>{author}</p>
+            <AuthorDiv>
+              {authorImgUrl ? <img src={authorImgUrl}/> : <img src={anonymousHead}/>}
+              {authorUsername ? <p>{authorUsername}</p> : <p>{authorEmail}</p>}
+            </AuthorDiv>
             <div className='vote-comment-time'>
               <p>{getFormattedDateTime(createdAt)}</p>
               {updatedAt !== createdAt ? <p>Updated: {getFormattedDateTime(updatedAt)}</p> : ''}
@@ -135,8 +155,8 @@ class ViewArticle extends Component {
               <img src={speechBubble} alt='speech bubble icon' />
               <p>{commentCount}</p>
             </div>
-            {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
-            <p>{body}</p>
+            {imgUrl === '' ? '' : <img className='article-img' src={imgUrl} alt='Image associated with article' />}
+            <p className='article-text'>{body}</p>
             <hr/>
             <CommentInput
               msgAlert={msgAlert}
@@ -183,16 +203,12 @@ const ContainerStyled = styled(Container)`
     color: rgb(102, 92, 88);
   }
   
-  .author {
-    margin: 15px 0 0;
-    font-size: 14px;
-  }
-  
   .vote-comment-time {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 25px;
+    margin-bottom: 10px;
     
     >p {
       font-size: 14px;
@@ -211,10 +227,28 @@ const ContainerStyled = styled(Container)`
     }
   }
   
-  img {
+  .article-img {
     width: 100%;
     padding: 0;
-    margin: 15px 0;
+  }
+  
+  .article-text {
+    margin-top: 10px;
+  }
+`
+
+const AuthorDiv = styled.div`
+  display: flex;
+  align-items: center;
+  
+  img {
+    width: 40px;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
+  
+  p {
+    margin: 0
   }
 `
 

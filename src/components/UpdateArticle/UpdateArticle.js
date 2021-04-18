@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import camelcaseObjectDeep from 'camelcase-object-deep'
@@ -46,14 +46,9 @@ class UpdateArticle extends Component {
     }
 
     return (
-      <Container className='mt-3'>
-        <Col>
-          <Row>
-            <h3>Update Article</h3>
-            <Create article={article} user={this.props.user} />
-          </Row>
-        </Col>
-      </Container>
+      <Fragment>
+        <Create article={article} user={this.props.user} />
+      </Fragment>
     )
   }
 }

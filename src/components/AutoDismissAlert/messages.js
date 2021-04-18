@@ -8,5 +8,7 @@ export default {
   changePasswordFailure: 'Failed to change passwords. Check your old password and try again.',
   signInToComment: 'Only signed-in users can comment.',
   signInToVote: 'Only signed-in users can cast a vote.',
-  alreadyVoted: 'You have already cast a vote. Only one vote may be cast!'
+  alreadyVoted: 'You have already cast a vote. Only one vote may be cast!',
+  userDetailUpdateSuccess: 'User details updated successfully!',
+  userDetailUpdateFailure: 'Oops...something went wrong. Please try again or reach out to customer service.'
 }
