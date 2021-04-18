@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { getFormattedDateTime } from '../../../../utils/utils'
 import heart from '../../../../assets/img/Heart.svg'
 import speechBubble from '../../../../assets/img/Speech_bubble.png'
+import anonymousHead from '../../../../assets/img/anonymous-head.png'
 
 class Article extends Component {
   handleSelectArticle = event => {
@@ -39,7 +40,9 @@ class Article extends Component {
       title,
       subTitle,
       createdAt,
-      author,
+      authorEmail,
+      authorUsername,
+      authorImgUrl,
       body,
       netVotes,
       commentCount
@@ -56,7 +59,8 @@ class Article extends Component {
       <Fragment>
         <Div onClick={this.handleSelectArticle}>
           <AuthorDateDiv>
-            <p>{author}</p>
+            {authorImgUrl ? <img src={authorImgUrl}/> : <img src={anonymousHead}/>}
+            {authorUsername ? <p>{authorUsername}</p> : <p>{authorEmail}</p>}
             <p>{getFormattedDateTime(createdAt)}</p>
           </AuthorDateDiv>
           <h4>{title}</h4>
@@ -104,17 +108,24 @@ const Div = styled.div`
 
 const AuthorDateDiv = styled.div`
   display: flex;
-  justify-content: space-between;
   margin-top: 20px;
+  align-items: center;
+  img {
+    width: 40px;
+    margin-right: 20px;
+    border-radius: 50%;
+  }
   p {
     padding-left: 0;
   }
   p:first-of-type {
+    justify-self: flex-start;
     font-weight: 500;
     line-height: 150%;
   }
   p:last-of-type {
     font-size: 0.875rem;
+    margin-left: auto;
   }
 `
 
