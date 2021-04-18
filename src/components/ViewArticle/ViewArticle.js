@@ -155,8 +155,8 @@ class ViewArticle extends Component {
               <img src={speechBubble} alt='speech bubble icon' />
               <p>{commentCount}</p>
             </div>
-            {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
-            <p>{body}</p>
+            {imgUrl === '' ? '' : <img className='article-img' src={imgUrl} alt='Image associated with article' />}
+            <p className='article-text'>{body}</p>
             <hr/>
             <CommentInput
               msgAlert={msgAlert}
@@ -203,16 +203,12 @@ const ContainerStyled = styled(Container)`
     color: rgb(102, 92, 88);
   }
   
-  //.author {
-  //  margin: 15px 0 0;
-  //  font-size: 14px;
-  //}
-  
   .vote-comment-time {
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 25px;
+    margin-bottom: 10px;
     
     >p {
       font-size: 14px;
@@ -231,10 +227,13 @@ const ContainerStyled = styled(Container)`
     }
   }
   
-  img {
+  .article-img {
     width: 100%;
     padding: 0;
-    margin: 15px 0;
+  }
+  
+  .article-text {
+    margin-top: 10px;
   }
 `
 

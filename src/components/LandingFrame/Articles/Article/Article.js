@@ -91,6 +91,7 @@ const Div = styled.div`
   * {
     padding: 0 10px;
     color: rgb(102, 92, 88);
+    margin: 5px 0;
   }
   
   h4 {

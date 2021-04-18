@@ -6,6 +6,7 @@ import { getFormattedDateTime } from '../../../utils/utils'
 import styled from 'styled-components'
 import heart from '../../../assets/img/Heart.svg'
 import CommentVotePanel from '../VotePanel/CommentVotePanel'
+import anonymousHead from '../../../assets/img/anonymous-head.png'
 
 class Comments extends Component {
   constructor (props) {
@@ -67,7 +68,8 @@ class Comments extends Component {
           return (
             <div key={uuid()}>
               <AuthorDateDiv>
-                <p>{comment.author}</p>
+                {comment.authorImgUrl ? <img src={comment.authorImgUrl} alt='author image'/> : <img src={anonymousHead} alt='anonymous head'/>}
+                {comment.authorUsername ? <p>{comment.authorUsername}</p> : <p>{comment.authorEmail}</p>}
                 <p>{getFormattedDateTime(comment.createdAt)}</p>
               </AuthorDateDiv>
               <PStyled>{comment.body}</PStyled>
@@ -100,23 +102,31 @@ class Comments extends Component {
 
 const AuthorDateDiv = styled.div`
   display: flex;
-  justify-content: space-between;
   margin-top: 22px;
+  align-items: center;
+  img {
+    width: 30px;
+    margin-right: 15px;
+    border-radius: 50%;
+  }
   p {
     padding-left: 0;
     font-size: 12px;
+    margin-bottom: 0;
   }
   p:first-of-type {
     font-weight: 500;
     line-height: 150%;
   }
   p:last-of-type {
+    margin-left: auto;
     font-size: 0.875rem;
   }
 `
 
 const PStyled = styled.p`
   font-size: 15px;
+  margin: 10px 0;
 `
 
 const VoteCountDiv = styled.div`

@@ -38,10 +38,12 @@ class Create extends Component {
         }
       })
     }
+    console.log(this.textAreaRef.current)
     this.textAreaChange(this.textAreaRef.current)
   }
 
   textAreaChange (text) {
+    console.log(this.state)
     text.style.height = 'auto'
     text.style.height = text.scrollHeight + 'px'
   }
@@ -91,16 +93,17 @@ class Create extends Component {
         <Col>
           <Row>
             <FormStyled onSubmit={handleSubmit}>
-              <input
-                type='text'
+              <textarea
+                // type='text'
                 name='title'
                 value={article.title}
                 placeholder='Enter title...'
                 required={true}
                 onChange={this.handleChange}
+                wrap='soft'
               />
-              <input
-                type='text'
+              <textarea
+                // type='text'
                 name='subTitle'
                 value={article.subTitle}
                 placeholder='Enter sub-title...'
@@ -122,7 +125,7 @@ class Create extends Component {
                     ref={this.textAreaRef}
                     name='body'
                     value={article.body}
-                    placeholder='Enter article body using markdown format...'
+                    placeholder='Enter article body...feel free to use markdown.'
                     required={true}
                     onChange={(event) => {
                       this.handleChange(event)
@@ -161,23 +164,45 @@ const FormStyled = styled.form`
   input {
     border: none;
     padding: 0.375rem 0.75rem;
+    overflow-wrap: normal;
     :focus {
       outline: none;
       border: none;
     }
   }
   
-  input:nth-child(1) {
+  > textarea:nth-child(1) {
     font-size: 2em;
     line-height: 1.1em;
     font-weight: 700;
     margin: 5px 0;
     color: black;
+    border: none;
+    overflow: auto;
+    overflow-wrap: normal;
+    outline: none;
+    resize: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    height: 90px;
   }
   
-  input:nth-child(2) {
+  > textarea:nth-child(2) {
     font-size: 19px;
+    line-height: 1.1em;
+    font-weight: 700;
     margin: 5px 0;
+    color: black;
+    border: none;
+    overflow: auto;
+    overflow-wrap: normal;
+    outline: none;
+    resize: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    height: 70px;
   }
   
   input:nth-child(3) {
