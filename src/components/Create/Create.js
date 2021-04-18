@@ -9,6 +9,7 @@ import styled from 'styled-components'
 import ReactMarkdown from 'react-markdown'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
+// the below two options proved to be more complicated and less light-weight
 // import MdEditor from 'react-markdown-editor-lite'
 // import MarkdownIt from 'markdown-it'
 
