@@ -8,6 +8,7 @@ import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
+import marked from 'marked'
 // the below two options proved to be more complicated and less light-weight
 // import MdEditor from 'react-markdown-editor-lite'
 // import MarkdownIt from 'markdown-it'
@@ -78,6 +79,11 @@ class Create extends Component {
       .catch(console.error)
   }
 
+  createCleanedMarkup = () => {
+    const dirtyHTML = marked(this.state.article.body)
+    return { __html: dirtyHTML }
+  }
+
   render () {
     const { article } = this.state
     const handleSubmit = this.props.match.path === '/create' ? this.handleCreate : this.handleUpdate
@@ -126,7 +132,7 @@ class Create extends Component {
                 </Tab>
                 <Tab eventKey="preview" title="Preview">
                   <PreviewDiv>
-                    <p>{article.body}</p>
+                    <div dangerouslySetInnerHTML={this.createCleanedMarkup()} />
                   </PreviewDiv>
                 </Tab>
               </Tabs>
