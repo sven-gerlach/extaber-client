@@ -14,7 +14,6 @@ import styled from 'styled-components'
 import speechBubble from '../../assets/img/Speech_bubble.png'
 import heart from '../../assets/img/Heart.svg'
 import ArticleVotePanel from './VotePanel/ArticleVotePanel'
-import ReactMarkdown from 'react-markdown'
 
 class ViewArticle extends Component {
   constructor (props) {
@@ -137,7 +136,7 @@ class ViewArticle extends Component {
               <p>{commentCount}</p>
             </div>
             {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
-            <ReactMarkdown>{body}</ReactMarkdown>
+            <p>{body}</p>
             <hr/>
             <CommentInput
               msgAlert={msgAlert}
