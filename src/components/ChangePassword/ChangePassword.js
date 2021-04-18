@@ -5,7 +5,7 @@ import { changePassword } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import styled from 'styled-components'
 
 class ChangePassword extends Component {
   constructor (props) {
@@ -47,13 +47,13 @@ class ChangePassword extends Component {
     const { oldPassword, newPassword } = this.state
 
     return (
-      <div className="row">
+      <DivStyled className="row mt-5">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Change Password</h3>
+          <H4Styled>Change Password</H4Styled>
           <Form onSubmit={this.onChangePassword}>
             <Form.Group controlId="oldPassword">
               <Form.Label>Old password</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 name="oldPassword"
                 value={oldPassword}
@@ -64,7 +64,7 @@ class ChangePassword extends Component {
             </Form.Group>
             <Form.Group controlId="newPassword">
               <Form.Label>New Password</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 name="newPassword"
                 value={newPassword}
@@ -73,17 +73,52 @@ class ChangePassword extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button
-              variant="primary"
+            <ButtonStyled
               type="submit"
             >
               Submit
-            </Button>
+            </ButtonStyled>
           </Form>
         </div>
-      </div>
+      </DivStyled>
     )
   }
 }
+
+const DivStyled = styled.div`
+  padding: 0 10px;
+`
+
+const H4Styled = styled.h4`
+  margin-bottom: 24px;
+`
+
+const FormControlStyled = styled(Form.Control)`
+  :focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+    border-color: rgb(89, 78, 54);
+  }
+`
+
+const ButtonStyled = styled.button`
+  background-color: rgb(126, 132, 107);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  :active {
+    background-color: rgb(89, 78, 54);
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+  }
+`
 
 export default withRouter(ChangePassword)

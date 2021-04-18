@@ -1,20 +1,23 @@
 import React, { Component } from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import Articles from './Articles/Articles'
+import styled from 'styled-components'
 
 class LandingFrame extends Component {
   render () {
     return (
-      <Container className='mt-3'>
-        <Col>
-          <Row>
-            <h3>Articles</h3>
-            <Articles />
-          </Row>
-        </Col>
-      </Container>
+      <ColStyled>
+        <Row>
+          <Articles />
+        </Row>
+      </ColStyled>
     )
   }
 }
+
+const ColStyled = styled(Col)`
+  margin-top: 90px;
+  flex-direction: column;
+`
 
 export default LandingFrame

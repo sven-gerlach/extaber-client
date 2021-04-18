@@ -5,17 +5,24 @@ import { getArticleFromAPI } from '../../api/articles'
 import { getCommentsFromAPI } from '../../api/comments'
 import { sendVoteOnArticleToAPI } from '../../api/votes'
 import camelcaseObjectDeep from 'camelcase-object-deep'
+import { getFormattedDateTime } from '../../utils/utils'
 import Spinner from 'react-bootstrap/Spinner'
 import CommentInput from './Comments/CommentInput'
 import Comments from './Comments/Comments'
 import messages from '../AutoDismissAlert/messages'
+import styled from 'styled-components'
+import speechBubble from '../../assets/img/Speech_bubble.png'
+import heart from '../../assets/img/Heart.svg'
+import ArticleVotePanel from './VotePanel/ArticleVotePanel'
+import ReactMarkdown from 'react-markdown'
 
 class ViewArticle extends Component {
   constructor (props) {
     super(props)
     this.state = {
       article: null,
-      comments: []
+      comments: [],
+      isArticleVotePanelDisplayed: false
     }
   }
 
@@ -39,7 +46,6 @@ class ViewArticle extends Component {
   getLatestComments = () => {
     // make axios call to api to retrieve all comments for this article
     // and store comments array in state
-    console.log('comments updated')
     const articleID = this.props.match.params.id
     getCommentsFromAPI(articleID)
       .then(res => {
@@ -49,7 +55,7 @@ class ViewArticle extends Component {
       .catch(console.error)
   }
 
-  handleVote = (event, vote) => {
+  handleArticleVote = (event, vote) => {
     const { user, msgAlert } = this.props
     if (!user) {
       // raise msg alerting user that only signed in users are allowed to vote
@@ -85,6 +91,14 @@ class ViewArticle extends Component {
     }
   }
 
+  invertArticleVotePanel = () => {
+    this.setState(prevState => {
+      return {
+        isArticleVotePanelDisplayed: !prevState.isArticleVotePanelDisplayed
+      }
+    })
+  }
+
   render () {
     if (!this.state.article) {
       return (
@@ -99,26 +113,37 @@ class ViewArticle extends Component {
         </Container>
       )
     }
-    const { title, subTitle, author, imgUrl, body, createdAt, updatedAt, netVotes } = this.state.article
+
+    const { title, subTitle, author, imgUrl, commentCount, body, createdAt, updatedAt, netVotes } = this.state.article
     const { msgAlert, user } = this.props
     return (
-      <Container className='mt-3'>
+      <ContainerStyled>
         <Col>
           <Row>
-            <h4>{title}</h4>
-            {subTitle === '' ? '' : <h6>{subTitle}</h6>}
-            <p>{author}</p>
+            <h4 className='title'>{title}</h4>
+            {subTitle === '' ? '' : <h6 className='sub-title'>{subTitle}</h6>}
+            <p className='author'>{author}</p>
+            <div className='vote-comment-time'>
+              <p>{getFormattedDateTime(createdAt)}</p>
+              {updatedAt !== createdAt ? <p>Updated: {getFormattedDateTime(updatedAt)}</p> : ''}
+              <img src={heart} alt='heart icon' onClick={this.invertArticleVotePanel} />
+              <ArticleVotePanel
+                invertArticleVotePanel={this.invertArticleVotePanel}
+                isArticleVotePanelDisplayed={this.state.isArticleVotePanelDisplayed}
+                handleArticleVote={this.handleArticleVote}
+              />
+              <p>{netVotes}</p>
+              <img src={speechBubble} alt='speech bubble icon' />
+              <p>{commentCount}</p>
+            </div>
             {imgUrl === '' ? '' : <img src={imgUrl} alt='Image associated with article' />}
-            <p>{createdAt}</p>
-            {updatedAt !== createdAt ? <p>{updatedAt}</p> : ''}
-            <p onClick={(event) => this.handleVote(event, +1)}>{'\u25b2'}</p>
-            <p onClick={(event) => this.handleVote(event, 0)}>{netVotes}</p>
-            <p onClick={(event) => this.handleVote(event, -1)}>{'\u25bc'}</p>
-            <p>{body}</p>
+            <ReactMarkdown>{body}</ReactMarkdown>
+            <hr/>
             <CommentInput
               msgAlert={msgAlert}
               user={user}
               getLatestArticleData={this.getLatestArticleData}
+              getLatestComments={this.getLatestComments}
             />
             <Comments
               msgAlert={msgAlert}
@@ -128,9 +153,70 @@ class ViewArticle extends Component {
             />
           </Row>
         </Col>
-      </Container>
+      </ContainerStyled>
     )
   }
 }
+
+const ContainerStyled = styled(Container)`
+  margin-top: 90px;
+  padding: 0;
+  
+  .row {
+    display: flex;
+    flex-direction: column;
+    >*:not(hr) {
+      padding: 0 15px 0 15px;
+    }
+    hr {
+      width: 100%;
+      height: 1px;
+    }
+  }
+  
+  .title {
+    font-size: 1.625rem;
+    font-weight: bold;
+  }
+  
+  .sub-title {
+    font-size: 19px;
+    color: rgb(102, 92, 88);
+  }
+  
+  .author {
+    margin: 15px 0 0;
+    font-size: 14px;
+  }
+  
+  .vote-comment-time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 25px;
+    
+    >p {
+      font-size: 14px;
+      color: rgb(102, 92, 88);
+      margin: 0 15px 0 0;
+    }
+    
+    img {
+      height: 13px;
+      width: 13px;
+      margin-right: 4px;
+    }
+    
+    img:first-of-type:hover {
+      cursor: pointer;
+    }
+  }
+  
+  img {
+    width: 100%;
+    padding: 0;
+    margin: 15px 0;
+  }
+`
 
 export default withRouter(ViewArticle)

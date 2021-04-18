@@ -5,7 +5,7 @@ import { signIn } from '../../api/auth'
 import messages from '../AutoDismissAlert/messages'
 
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+import styled from 'styled-components'
 
 class SignIn extends Component {
   constructor (props) {
@@ -48,13 +48,13 @@ class SignIn extends Component {
     const { email, password } = this.state
 
     return (
-      <div className="row">
+      <DivStyled className="row mt-5">
         <div className="col-sm-10 col-md-8 mx-auto mt-5">
-          <h3>Sign In</h3>
+          <h4 className='my-4'>Sign In</h4>
           <Form onSubmit={this.onSignIn}>
             <Form.Group controlId="email">
               <Form.Label>Email address</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 type="email"
                 name="email"
@@ -65,7 +65,7 @@ class SignIn extends Component {
             </Form.Group>
             <Form.Group controlId="password">
               <Form.Label>Password</Form.Label>
-              <Form.Control
+              <FormControlStyled
                 required
                 name="password"
                 value={password}
@@ -74,17 +74,48 @@ class SignIn extends Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
-            <Button
-              variant="primary"
+            <ButtonStyled
               type="submit"
             >
               Submit
-            </Button>
+            </ButtonStyled>
           </Form>
         </div>
-      </div>
+      </DivStyled>
     )
   }
 }
+
+const DivStyled = styled.div`
+  padding: 0 10px;
+`
+
+const FormControlStyled = styled(Form.Control)`
+  :focus {
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+    border-color: rgb(89, 78, 54);
+  }
+`
+
+export const ButtonStyled = styled.button`
+  background-color: rgb(126, 132, 107);
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  :active {
+    background-color: rgb(89, 78, 54);
+    outline: none;
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+  }
+`
 
 export default withRouter(SignIn)
