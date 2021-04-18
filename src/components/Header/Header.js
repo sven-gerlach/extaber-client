@@ -3,12 +3,16 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import taborDrumImg from '../../assets/img/tabor_img.png'
 import styled from 'styled-components'
+import { NavDropdown } from 'react-bootstrap'
 
 const authenticatedOptions = (
   <Fragment>
     <Nav.Link href="#create">Create</Nav.Link>
     <Nav.Link href="#my-articles">My Articles</Nav.Link>
-    <Nav.Link href="#change-password">Change Password</Nav.Link>
+    <NavDropdown title='Admin' id='basic-nav-dropdown'>
+      <NavDropdown.Item href="#my-details">My Details</NavDropdown.Item>
+      <NavDropdown.Item href="#change-password">Change Password</NavDropdown.Item>
+    </NavDropdown>
     <Nav.Link href="#sign-out">Sign Out</Nav.Link>
   </Fragment>
 )
@@ -41,7 +45,7 @@ const Header = ({ user }) => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <NavbarToggleStyled id="basic-navbar-nav">
       <Nav className="ml-auto">
-        { user && <span className="navbar-text mr-2">Welcome, {user.email}</span>}
+        { user && <span className="navbar-text mr-5">Welcome, {user.username}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>

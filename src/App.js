@@ -17,6 +17,7 @@ import Create from './components/Create/Create'
 import MyArticles from './components/MyArticles/MyArticles'
 import UpdateArticle from './components/UpdateArticle/UpdateArticle'
 import ViewArticle from './components/ViewArticle/ViewArticle'
+import MyDetails from './components/MyDetails/MyDetails'
 
 class App extends Component {
   constructor (props) {
@@ -28,6 +29,16 @@ class App extends Component {
   }
 
   setUser = user => this.setState({ user })
+
+  updateUser = user => {
+    console.log(this.state.user)
+    user = { ...this.state.user, ...user }
+    console.log(user)
+    this.setState({
+      user: user
+    })
+    console.log(this.state.user)
+  }
 
   clearUser = () => this.setState({ user: null })
 
@@ -73,12 +84,6 @@ class App extends Component {
           <Route path='/view-article/:id' render={() => (
             <ViewArticle msgAlert={this.msgAlert} user={user} />
           )}/>
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword msgAlert={this.msgAlert} user={user} />
-          )} />
           <AuthenticatedRoute user={user} path='/create' render={() => (
             <Create msgAlert={this.msgAlert} user={user} />
           )} />
@@ -87,6 +92,15 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/update-article/:id' render={() => (
             <UpdateArticle msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/change-password' render={() => (
+            <ChangePassword msgAlert={this.msgAlert} user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/my-details' render={() => (
+            <MyDetails msgAlert={this.msgAlert} user={user} updateUser={this.updateUser} />
           )} />
         </MainStyled>
       </Fragment>
