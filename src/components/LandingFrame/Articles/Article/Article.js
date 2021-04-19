@@ -91,11 +91,11 @@ class Article extends Component {
           </AuthorDateDiv>
           <h4>{title}</h4>
           {subTitle ? <p>{subTitle}</p> : ''}
-          {imgUrl ? <div><img src={imgUrl} /></div> : '' }
+          {imgUrl ? <div><img className='articleImg' src={imgUrl} /></div> : '' }
           <VoteCommentCountDiv>
-            <img src={heart} alt='heart icon'/>
+            <img className='icons' src={heart} alt='heart icon'/>
             <p>{netVotes}</p>
-            <img src={speechBubble} alt='speech bubble icon' />
+            <img className='icons' src={speechBubble} alt='speech bubble icon' />
             <p>{commentCount}</p>
           </VoteCommentCountDiv>
           {this.props.location.pathname === '/my-articles' ? buttonJSX : ''}
@@ -130,7 +130,7 @@ const Div = styled.div`
     line-height: 150%;
   }
   
-  img {
+  .articleImg {
     width: 100%;
     padding: 0;
     margin-bottom: 16px;
@@ -143,8 +143,9 @@ const AuthorDateDiv = styled.div`
   align-items: center;
   img {
     width: 40px;
-    margin-right: 20px;
+    margin-right: 10px;
     border-radius: 50%;
+    padding: 0;
   }
   p {
     padding-left: 0;
@@ -168,9 +169,10 @@ const VoteCommentCountDiv = styled.div`
     padding: 0;
     margin: 0 20px 0 5px;
   }
-  > img {
-    height: 13px;
-    width: 13px;
+  .icons {
+    width: 15px;
+    margin-right: 0;
+    padding: 0;
   }
 `
 
