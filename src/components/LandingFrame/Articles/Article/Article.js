@@ -141,11 +141,14 @@ const AuthorDateDiv = styled.div`
   display: flex;
   margin-top: 20px;
   align-items: center;
+  height: 35px;
   img {
-    width: 40px;
+    height: 35px;
+    width: 35px;
     margin-right: 10px;
     border-radius: 50%;
     padding: 0;
+    object-fit: cover;
   }
   p {
     padding-left: 0;

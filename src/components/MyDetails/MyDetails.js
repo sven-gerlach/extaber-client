@@ -105,7 +105,10 @@ const FormGroupStyled = styled(Form.Group)`
   position: relative;
   img {
     height: calc(1.5em + 0.75rem + 2px);
+    width: calc(1.5em + 0.75rem + 2px);
+    object-fit: cover;
     position: absolute;
+    border-radius: 50%;
     bottom: 0;
     right: 0;
   }
