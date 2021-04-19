@@ -8,6 +8,13 @@ export const getArticlesFromAPI = () => {
   })
 }
 
+export const getFilteredArticlesFromAPI = searchString => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/articles/search/' + searchString + '/'
+  })
+}
+
 export const getMyArticlesFromAPI = token => {
   return axios({
     method: 'GET',

@@ -8,10 +8,19 @@ import speechBubble from '../../../../assets/img/Speech_bubble.png'
 import anonymousHead from '../../../../assets/img/anonymous-head.png'
 import marked from 'marked'
 import DOMPurify from 'dompurify'
+import DeleteModal from './DeleteModal/DeleteModal'
 
 class Article extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      modalShow: false
+    }
+  }
+
   handleSelectArticle = event => {
     event.preventDefault()
+    event.stopPropagation()
     // redirect to view article in full
     const articleID = this.props.article.id
     this.props.history.push(`/view-article/${articleID}`)
@@ -41,6 +50,16 @@ class Article extends Component {
     return { __html: cleanHTML }
   }
 
+  flipModalShowState = (event) => {
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    this.setState({
+      modalShow: !this.state.modalShow
+    })
+  }
+
   render () {
     // todo: implement comments here
     const {
@@ -57,7 +76,7 @@ class Article extends Component {
 
     const buttonJSX = (
       <ButtonContainer>
-        <ButtonStyled type='button' onClick={this.handleDelete}>Delete</ButtonStyled>
+        <ButtonStyled type='button' onClick={this.flipModalShowState}>Delete</ButtonStyled>
         <ButtonStyled type='button' onClick={this.handleUpdate}>Update</ButtonStyled>
       </ButtonContainer>
     )
@@ -72,14 +91,19 @@ class Article extends Component {
           </AuthorDateDiv>
           <h4>{title}</h4>
           {subTitle ? <p>{subTitle}</p> : ''}
-          {imgUrl ? <div><img src={imgUrl} /></div> : '' }
+          {imgUrl ? <div><img className='articleImg' src={imgUrl} /></div> : '' }
           <VoteCommentCountDiv>
-            <img src={heart} alt='heart icon'/>
+            <img className='icons' src={heart} alt='heart icon'/>
             <p>{netVotes}</p>
-            <img src={speechBubble} alt='speech bubble icon' />
+            <img className='icons' src={speechBubble} alt='speech bubble icon' />
             <p>{commentCount}</p>
           </VoteCommentCountDiv>
           {this.props.location.pathname === '/my-articles' ? buttonJSX : ''}
+          <DeleteModal
+            modalShow={this.state.modalShow}
+            flipModalShowState={this.flipModalShowState}
+            handleDelete={this.handleDelete}
+          />
           <Hr />
         </Div>
       </Fragment>
@@ -106,7 +130,7 @@ const Div = styled.div`
     line-height: 150%;
   }
   
-  img {
+  .articleImg {
     width: 100%;
     padding: 0;
     margin-bottom: 16px;
@@ -119,8 +143,9 @@ const AuthorDateDiv = styled.div`
   align-items: center;
   img {
     width: 40px;
-    margin-right: 20px;
+    margin-right: 10px;
     border-radius: 50%;
+    padding: 0;
   }
   p {
     padding-left: 0;
@@ -144,9 +169,10 @@ const VoteCommentCountDiv = styled.div`
     padding: 0;
     margin: 0 20px 0 5px;
   }
-  > img {
-    height: 13px;
-    width: 13px;
+  .icons {
+    width: 15px;
+    margin-right: 0;
+    padding: 0;
   }
 `
 
