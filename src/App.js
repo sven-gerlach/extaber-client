@@ -18,6 +18,7 @@ import MyArticles from './components/MyArticles/MyArticles'
 import UpdateArticle from './components/UpdateArticle/UpdateArticle'
 import ViewArticle from './components/ViewArticle/ViewArticle'
 import MyDetails from './components/MyDetails/MyDetails'
+import AboutUs from './components/AboutUs/AboutUs'
 
 class App extends Component {
   constructor (props) {
@@ -77,6 +78,9 @@ class App extends Component {
           )} />
           <Route exact path='/' render={() => (
             <LandingFrame />
+          )}/>
+          <Route exact path='/about-us' render={() => (
+            <AboutUs />
           )}/>
           <Route path='/view-article/:id' render={() => (
             <ViewArticle msgAlert={this.msgAlert} user={user} />

@@ -7,6 +7,7 @@ import { NavDropdown } from 'react-bootstrap'
 
 const authenticatedOptions = (
   <Fragment>
+    <Nav.Link href="#about-us">About Us</Nav.Link>
     <Nav.Link href="#create">Create</Nav.Link>
     <Nav.Link href="#my-articles">My Articles</Nav.Link>
     <NavDropdown title='Admin' id='basic-nav-dropdown'>
@@ -19,6 +20,7 @@ const authenticatedOptions = (
 
 const unauthenticatedOptions = (
   <Fragment>
+    <Nav.Link href="#about-us">About Us</Nav.Link>
     <Nav.Link href="#sign-up">Sign Up</Nav.Link>
     <Nav.Link href="#sign-in">Sign In</Nav.Link>
   </Fragment>
@@ -45,7 +47,7 @@ const Header = ({ user }) => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <NavbarToggleStyled id="basic-navbar-nav">
       <Nav className="ml-auto">
-        { user && <span className="navbar-text mr-5">Welcome, {user.username}</span>}
+        { user && <span className="navbar-text mr-5">Welcome, {user.username === '' ? user.email : user.username}</span>}
         { alwaysOptions }
         { user ? authenticatedOptions : unauthenticatedOptions }
       </Nav>
