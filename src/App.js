@@ -10,6 +10,9 @@ import SignIn from './components/SignIn/SignIn'
 import SignOut from './components/SignOut/SignOut'
 import ChangePassword from './components/ChangePassword/ChangePassword'
 import styled from 'styled-components'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 // Importing components
 import LandingFrame from './components/LandingFrame/LandingFrame'
@@ -69,47 +72,51 @@ class App extends Component {
             deleteAlert={this.deleteAlert}
           />
         ))}
-        <MainStyled className="container">
-          <Route path='/sign-up' render={() => (
-            <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <Route path='/sign-in' render={() => (
-            <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
-          )} />
-          <Route exact path='/' render={() => (
-            <LandingFrame />
-          )}/>
-          <Route exact path='/about-us' render={() => (
-            <AboutUs />
-          )}/>
-          <Route path='/view-article/:id' render={() => (
-            <ViewArticle msgAlert={this.msgAlert} user={user} />
-          )}/>
-          <AuthenticatedRoute user={user} path='/create' render={() => (
-            <Create msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/my-articles' render={() => (
-            <MyArticles msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/update-article/:id' render={() => (
-            <UpdateArticle msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
-            <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
-            <ChangePassword msgAlert={this.msgAlert} user={user} />
-          )} />
-          <AuthenticatedRoute user={user} path='/my-details' render={() => (
-            <MyDetails msgAlert={this.msgAlert} user={user} updateUser={this.updateUser} />
-          )} />
-        </MainStyled>
+        <ContainerStyled>
+          <Row className='justify-content-center'>
+            <Col xs={12} sm={12} md={10} lg={8}>
+              <Route path='/sign-up' render={() => (
+                <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+              )} />
+              <Route path='/sign-in' render={() => (
+                <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
+              )} />
+              <Route exact path='/' render={() => (
+                <LandingFrame />
+              )}/>
+              <Route exact path='/about-us' render={() => (
+                <AboutUs />
+              )}/>
+              <Route path='/view-article/:id' render={() => (
+                <ViewArticle msgAlert={this.msgAlert} user={user} />
+              )}/>
+              <AuthenticatedRoute user={user} path='/create' render={() => (
+                <Create msgAlert={this.msgAlert} user={user} />
+              )} />
+              <AuthenticatedRoute user={user} path='/my-articles' render={() => (
+                <MyArticles msgAlert={this.msgAlert} user={user} />
+              )} />
+              <AuthenticatedRoute user={user} path='/update-article/:id' render={() => (
+                <UpdateArticle msgAlert={this.msgAlert} user={user} />
+              )} />
+              <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+                <SignOut msgAlert={this.msgAlert} clearUser={this.clearUser} user={user} />
+              )} />
+              <AuthenticatedRoute user={user} path='/change-password' render={() => (
+                <ChangePassword msgAlert={this.msgAlert} user={user} />
+              )} />
+              <AuthenticatedRoute user={user} path='/my-details' render={() => (
+                <MyDetails msgAlert={this.msgAlert} user={user} updateUser={this.updateUser} />
+              )} />
+            </Col>
+          </Row>
+        </ContainerStyled>
       </Fragment>
     )
   }
 }
 
-const MainStyled = styled.main`
+const ContainerStyled = styled(Container)`
   @media (max-width: 575px) {
     padding: 0;
   }
