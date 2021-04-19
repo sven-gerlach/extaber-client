@@ -92,7 +92,6 @@ class Create extends Component {
           <Row>
             <FormStyled onSubmit={handleSubmit}>
               <textarea
-                // type='text'
                 name='title'
                 value={article.title}
                 placeholder='Enter title...'
@@ -101,15 +100,14 @@ class Create extends Component {
                 wrap='soft'
               />
               <textarea
-                // type='text'
                 name='subTitle'
                 value={article.subTitle}
                 placeholder='Enter sub-title...'
                 required={false}
                 onChange={this.handleChange}
               />
-              <input
-                type='text'
+              <textarea
+                // type='text'
                 name='imgUrl'
                 value={article.imgUrl}
                 placeholder='Enter image url...'
@@ -202,10 +200,22 @@ const FormStyled = styled.form`
     -moz-box-shadow: none;
     height: 70px;
   }
-  
-  input:nth-child(3) {
+
+  > textarea:nth-child(3) {
     font-size: 14px;
+    line-height: 1.1em;
+    font-weight: 700;
     margin: 5px 0 20px 0;
+    color: black;
+    border: none;
+    overflow: auto;
+    overflow-wrap: normal;
+    outline: none;
+    resize: none;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    height: 40px;
   }
   
   img {

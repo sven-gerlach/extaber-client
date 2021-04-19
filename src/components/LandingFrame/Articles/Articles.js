@@ -1,15 +1,17 @@
 import React, { Component, Fragment } from 'react'
 import Article from './Article/Article'
-import { getArticlesFromAPI } from '../../../api/articles'
+import { getArticlesFromAPI, getFilteredArticlesFromAPI } from '../../../api/articles'
 import Spinner from 'react-bootstrap/Spinner'
 import { v4 as uuid } from 'uuid'
 import camelcaseObjectDeep from 'camelcase-object-deep'
+import styled from 'styled-components'
 
 class Articles extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      articles: null
+      articles: null,
+      searchString: ''
     }
   }
 
@@ -27,8 +29,29 @@ class Articles extends Component {
       .catch(console.error)
   }
 
+  handleSearch = () => {
+    // make axios call to API to retrieve relevant articles and set state
+    const searchString = this.state.searchString
+    getFilteredArticlesFromAPI(searchString)
+      .then(res => {
+        console.log(res)
+        // convert object keys from snake case to camel case
+        const articles = camelcaseObjectDeep(res.data.articles, { deep: true })
+        this.setState({
+          articles: articles
+        })
+      })
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    this.handleSearch(this.state.searchString)
+  }
+
   render () {
-    const { articles, user } = this.state
+    const { articles } = this.state
     if (!articles) {
       return (
         <Fragment>
@@ -41,15 +64,35 @@ class Articles extends Component {
 
     const articlesJSX = []
     for (const article of articles) {
-      articlesJSX.push(<Article key={uuid()} article={article} user={user} />)
+      articlesJSX.push(<Article key={uuid()} article={article} />)
     }
 
     return (
       <Fragment>
+        <InputStyled
+          type='text'
+          name='searchString'
+          value={this.state.searchString}
+          placeholder='Search across title, sub-title, and body...'
+          onChange={this.handleChange}
+        />
         {articlesJSX}
       </Fragment>
     )
   }
 }
+
+const InputStyled = styled.input`
+  width: 100%;
+  border: 10px solid rgb(245, 242, 240);
+  line-height: 30px;
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  outline: none;
+  :focus {
+    box-shadow: 0 0 2px 2px rgba(89, 78, 54, 0.5);
+  }
+`
 
 export default Articles
