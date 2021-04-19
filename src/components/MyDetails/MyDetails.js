@@ -25,9 +25,8 @@ class MyDetails extends Component {
           username: user.username,
           userImgUrl: user.userImgUrl
         })
-        console.log(this.state)
       })
-      .catch(console.error)
+      .catch()
   }
 
   handleChange = event => this.setState({

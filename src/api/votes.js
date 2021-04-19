@@ -18,9 +18,6 @@ export const sendVoteOnArticleToAPI = (token, articleID, vote) => {
 }
 
 export const sendVoteOnCommentToAPI = (token, commentID, vote) => {
-  console.log('token: ', token)
-  console.log('commentID: ', commentID)
-  console.log('vote: ', vote)
   return axios({
     method: 'POST',
     url: apiUrl + '/comment-votes/',

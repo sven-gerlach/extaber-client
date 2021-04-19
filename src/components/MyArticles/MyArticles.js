@@ -35,12 +35,24 @@ class MyArticles extends Component {
     const { user } = this.props
     if (!myArticles) {
       return (
-        <Container className='mt-3'>
+        <Container className='mt-5'>
           <Col>
             <Row>
               <Spinner animation="border" role="status">
                 <span className="sr-only">Loading...</span>
               </Spinner>
+            </Row>
+          </Col>
+        </Container>
+      )
+    }
+
+    if (myArticles.length === 0) {
+      return (
+        <Container className='mt-5'>
+          <Col>
+            <Row>
+              <h4 className='mt-5'>You have yet to write your first article...</h4>
             </Row>
           </Col>
         </Container>

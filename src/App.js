@@ -31,13 +31,10 @@ class App extends Component {
   setUser = user => this.setState({ user })
 
   updateUser = user => {
-    console.log(this.state.user)
     user = { ...this.state.user, ...user }
-    console.log(user)
     this.setState({
       user: user
     })
-    console.log(this.state.user)
   }
 
   clearUser = () => this.setState({ user: null })

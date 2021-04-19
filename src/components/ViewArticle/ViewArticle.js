@@ -40,10 +40,9 @@ class ViewArticle extends Component {
       .then(res => {
         // convert obj from snake- to camel-case
         const article = camelcaseObjectDeep(res.data.article, { deep: true })
-        console.log(article)
         this.setState({ article })
       })
-      .catch(console.error)
+      .catch()
   }
 
   getLatestComments = () => {
@@ -72,7 +71,6 @@ class ViewArticle extends Component {
       const articleID = this.state.article.id
       sendVoteOnArticleToAPI(token, articleID, vote)
         .then(res => {
-          console.log(res)
           this.getLatestArticleData()
           this.getLatestComments()
         })
@@ -137,9 +135,6 @@ class ViewArticle extends Component {
       netVotes
     } = this.state.article
     const { msgAlert, user } = this.props
-    console.log(authorUsername)
-    console.log(authorEmail)
-    console.log(authorImgUrl)
     return (
       <ContainerStyled>
         <Col>
