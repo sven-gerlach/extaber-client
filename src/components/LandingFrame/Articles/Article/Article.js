@@ -8,10 +8,19 @@ import speechBubble from '../../../../assets/img/Speech_bubble.png'
 import anonymousHead from '../../../../assets/img/anonymous-head.png'
 import marked from 'marked'
 import DOMPurify from 'dompurify'
+import DeleteModal from './DeleteModal/DeleteModal'
 
 class Article extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      modalShow: false
+    }
+  }
+
   handleSelectArticle = event => {
     event.preventDefault()
+    event.stopPropagation()
     // redirect to view article in full
     const articleID = this.props.article.id
     this.props.history.push(`/view-article/${articleID}`)
@@ -41,6 +50,16 @@ class Article extends Component {
     return { __html: cleanHTML }
   }
 
+  flipModalShowState = (event) => {
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+    this.setState({
+      modalShow: !this.state.modalShow
+    })
+  }
+
   render () {
     // todo: implement comments here
     const {
@@ -57,7 +76,7 @@ class Article extends Component {
 
     const buttonJSX = (
       <ButtonContainer>
-        <ButtonStyled type='button' onClick={this.handleDelete}>Delete</ButtonStyled>
+        <ButtonStyled type='button' onClick={this.flipModalShowState}>Delete</ButtonStyled>
         <ButtonStyled type='button' onClick={this.handleUpdate}>Update</ButtonStyled>
       </ButtonContainer>
     )
@@ -80,6 +99,11 @@ class Article extends Component {
             <p>{commentCount}</p>
           </VoteCommentCountDiv>
           {this.props.location.pathname === '/my-articles' ? buttonJSX : ''}
+          <DeleteModal
+            modalShow={this.state.modalShow}
+            flipModalShowState={this.flipModalShowState}
+            handleDelete={this.handleDelete}
+          />
           <Hr />
         </Div>
       </Fragment>
