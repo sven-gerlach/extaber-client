@@ -21,7 +21,7 @@ export const sendUpdatedUserDetailsToAPI = (token, updatedUserDetails) => {
     data: {
       user: {
         username: updatedUserDetails.username,
-        user_img_url: updatedUserDetails.user_img_url
+        user_img_url: updatedUserDetails.userImgUrl
       }
     }
   })

@@ -38,6 +38,7 @@ class MyDetails extends Component {
     const { msgAlert, user, updateUser } = this.props
     const token = user.token
     const updatedUserDetail = this.state
+    console.log(updatedUserDetail)
 
     sendUpdatedUserDetailsToAPI(token, updatedUserDetail)
       .then(res => updateUser(res.data.user))

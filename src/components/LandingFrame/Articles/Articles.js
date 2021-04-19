@@ -34,7 +34,6 @@ class Articles extends Component {
     const searchString = this.state.searchString
     getFilteredArticlesFromAPI(searchString)
       .then(res => {
-        console.log(res)
         // convert object keys from snake case to camel case
         const articles = camelcaseObjectDeep(res.data.articles, { deep: true })
         this.setState({
