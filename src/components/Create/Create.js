@@ -38,12 +38,10 @@ class Create extends Component {
         }
       })
     }
-    console.log(this.textAreaRef.current)
     this.textAreaChange(this.textAreaRef.current)
   }
 
   textAreaChange (text) {
-    console.log(this.state)
     text.style.height = 'auto'
     text.style.height = text.scrollHeight + 'px'
   }
