@@ -15,6 +15,8 @@ import speechBubble from '../../assets/img/Speech_bubble.png'
 import heart from '../../assets/img/Heart.svg'
 import anonymousHead from '../../assets/img/anonymous-head.png'
 import ArticleVotePanel from './VotePanel/ArticleVotePanel'
+import marked from 'marked'
+import DOMPurify from 'dompurify'
 
 class ViewArticle extends Component {
   constructor (props) {
@@ -100,6 +102,12 @@ class ViewArticle extends Component {
     })
   }
 
+  createCleanedMarkup = (body) => {
+    const dirtyHTML = marked(body)
+    const cleanHTML = DOMPurify.sanitize(dirtyHTML)
+    return { __html: cleanHTML }
+  }
+
   render () {
     if (!this.state.article) {
       return (
@@ -156,7 +164,7 @@ class ViewArticle extends Component {
               <p>{commentCount}</p>
             </div>
             {imgUrl === '' ? '' : <img className='article-img' src={imgUrl} alt='Image associated with article' />}
-            <p className='article-text'>{body}</p>
+            <p className='article-text' dangerouslySetInnerHTML={this.createCleanedMarkup(body)}></p>
             <hr/>
             <CommentInput
               msgAlert={msgAlert}

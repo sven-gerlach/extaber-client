@@ -6,6 +6,8 @@ import { getFormattedDateTime } from '../../../../utils/utils'
 import heart from '../../../../assets/img/Heart.svg'
 import speechBubble from '../../../../assets/img/Speech_bubble.png'
 import anonymousHead from '../../../../assets/img/anonymous-head.png'
+import marked from 'marked'
+import DOMPurify from 'dompurify'
 
 class Article extends Component {
   handleSelectArticle = event => {
@@ -33,6 +35,12 @@ class Article extends Component {
     this.props.history.push(`/update-article/${articleID}`)
   }
 
+  createCleanedMarkup = (body) => {
+    const dirtyHTML = marked(body)
+    const cleanHTML = DOMPurify.sanitize(dirtyHTML)
+    return { __html: cleanHTML }
+  }
+
   render () {
     // todo: implement comments here
     const {
@@ -43,7 +51,6 @@ class Article extends Component {
       authorEmail,
       authorUsername,
       authorImgUrl,
-      body,
       netVotes,
       commentCount
     } = this.props.article
@@ -66,7 +73,6 @@ class Article extends Component {
           <h4>{title}</h4>
           {subTitle ? <p>{subTitle}</p> : ''}
           {imgUrl ? <div><img src={imgUrl} /></div> : '' }
-          <p>{body}</p>
           <VoteCommentCountDiv>
             <img src={heart} alt='heart icon'/>
             <p>{netVotes}</p>

@@ -90,7 +90,7 @@ const DivStyled = styled.div`
 `
 
 const H4Styled = styled.h4`
-  margin-bottom: 24px;
+  margin: 24px 0 24px;
 `
 
 const FormControlStyled = styled(Form.Control)`
