@@ -105,9 +105,12 @@ const AuthorDateDiv = styled.div`
   margin-top: 22px;
   align-items: center;
   img {
+    height: 30px;
     width: 30px;
-    margin-right: 15px;
+    margin-right: 10px;
     border-radius: 50%;
+    padding: 0;
+    object-fit: cover;
   }
   p {
     padding-left: 0;

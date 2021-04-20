@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Route } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import { v4 as uuid } from 'uuid'
 
 import AuthenticatedRoute from './components/AuthenticatedRoute/AuthenticatedRoute'
@@ -13,6 +13,7 @@ import styled from 'styled-components'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import EasySignInModal from './components/Modal/EasySignInModal'
 
 // Importing components
 import LandingFrame from './components/LandingFrame/LandingFrame'
@@ -22,14 +23,28 @@ import UpdateArticle from './components/UpdateArticle/UpdateArticle'
 import ViewArticle from './components/ViewArticle/ViewArticle'
 import MyDetails from './components/MyDetails/MyDetails'
 import AboutUs from './components/AboutUs/AboutUs'
+import { signIn, signUp } from './api/auth'
+import messages from './components/AutoDismissAlert/messages'
 
 class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
       user: null,
-      msgAlerts: []
+      msgAlerts: [],
+      isModal: false,
+      email: '',
+      password: '',
+      passwordConfirmation: ''
     }
+  }
+
+  componentDidMount () {
+    setTimeout(() => {
+      this.setState({
+        isModal: true
+      })
+    }, 1000)
   }
 
   setUser = user => this.setState({ user })
@@ -40,6 +55,10 @@ class App extends Component {
       user: user
     })
   }
+
+  handleChange = event => this.setState({
+    [event.target.name]: event.target.value
+  })
 
   clearUser = () => this.setState({ user: null })
 
@@ -56,8 +75,66 @@ class App extends Component {
     })
   }
 
+  handleCloseModal = () => {
+    this.setState({
+      isModal: false
+    })
+  }
+
+  handleExpeditedSignUp = () => {
+    Promise.resolve()
+      .then(() => this.setRandomSignUpDetails())
+      .then(() => this.onSignUp())
+      .catch()
+  }
+
+  makeRandomString = length => {
+    let result = ''
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * characters.length))
+    }
+    return result
+  }
+
+  setRandomSignUpDetails = () => {
+    // sets a random user profile which is needed if users prefer to not sign-in with their email
+    const password = this.makeRandomString(5)
+    this.setState({
+      email: `${this.makeRandomString(10)}@random.com`,
+      password: password,
+      passwordConfirmation: password
+    })
+  }
+
+  onSignUp = event => {
+    if (event) event.preventDefault()
+    const { history } = this.props
+    signUp(this.state)
+      .then(() => signIn(this.state))
+      .then(res => this.setUser(res.data.user))
+      .then(() => this.msgAlert({
+        heading: 'Sign Up Success',
+        message: messages.signUpSuccess,
+        variant: 'success'
+      }))
+      .then(() => {
+        if (this.props.location.pathname !== '/') {
+          history.push('/')
+        }
+      })
+      .catch(error => {
+        this.setState({ email: '', password: '', passwordConfirmation: '' })
+        this.msgAlert({
+          heading: 'Sign Up Failed with error: ' + error.message,
+          message: messages.signUpFailure,
+          variant: 'danger'
+        })
+      })
+  }
+
   render () {
-    const { msgAlerts, user } = this.state
+    const { msgAlerts, user, isModal } = this.state
 
     return (
       <Fragment>
@@ -75,8 +152,22 @@ class App extends Component {
         <ContainerStyled>
           <Row className='justify-content-center'>
             <Col xs={12} sm={12} md={10} lg={8}>
+              <EasySignInModal
+                isModal={isModal}
+                user={user}
+                handleCloseModal={this.handleCloseModal}
+                handleExpeditedSignUp={this.handleExpeditedSignUp}
+              />
               <Route path='/sign-up' render={() => (
-                <SignUp msgAlert={this.msgAlert} setUser={this.setUser} />
+                <SignUp
+                  msgAlert={this.msgAlert}
+                  setUser={this.setUser}
+                  onSignUp={this.onSignUp}
+                  handleChange={this.handleChange}
+                  email={this.state.email}
+                  password={this.state.password}
+                  passwordConfirmation={this.state.passwordConfirmation}
+                />
               )} />
               <Route path='/sign-in' render={() => (
                 <SignIn msgAlert={this.msgAlert} setUser={this.setUser} />
@@ -122,4 +213,4 @@ const ContainerStyled = styled(Container)`
   }
 `
 
-export default App
+export default withRouter(App)
