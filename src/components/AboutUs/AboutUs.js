@@ -10,7 +10,7 @@ class AboutUs extends Component {
           <h4>About Us</h4>
           <p>ExTABER is a platform where independent investigative journalists can publish their work, create a readership, and
             potentially monetise their work. The ethos underlying ExTABER is hidden in form of an anagram in its name. The
-            anagram is based on the epistemological viewpoint that free thought must exist <b>Ex</b> Tradition, <b>A</b>authority,<b>E</b>established <b>B</b>relief, and <b>R</b>evelation.</p>
+            anagram is based on the epistemological viewpoint that free thought must exist <b>Ex</b> Tradition, <b>A</b>authority, <b>E</b>established <b>B</b>relief, and <b>R</b>evelation.</p>
         </Row>
       </ColStyled>
     )
