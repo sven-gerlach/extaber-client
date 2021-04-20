@@ -45,8 +45,9 @@ class Articles extends Component {
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
+    }, () => {
+      this.handleSearch(this.state.searchString)
     })
-    this.handleSearch(this.state.searchString)
   }
 
   render () {
