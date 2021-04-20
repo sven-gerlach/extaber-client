@@ -245,9 +245,12 @@ const AuthorDiv = styled.div`
   align-items: center;
   
   img {
-    width: 40px;
-    margin-right: 20px;
+    height: 35px;
+    width: 35px;
+    margin-right: 10px;
     border-radius: 50%;
+    padding: 0;
+    object-fit: cover;
   }
   
   p {
