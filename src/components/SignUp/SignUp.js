@@ -5,6 +5,10 @@ import { ButtonStyled } from '../SignIn/SignIn'
 import styled from 'styled-components'
 
 class SignUp extends Component {
+  componentWillUnmount () {
+    this.props.clearSignUpForm()
+  }
+
   render () {
     const { email, password, passwordConfirmation, handleChange } = this.props
 

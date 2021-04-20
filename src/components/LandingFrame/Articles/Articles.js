@@ -46,7 +46,9 @@ class Articles extends Component {
     this.setState({
       [event.target.name]: event.target.value
     }, () => {
-      this.handleSearch(this.state.searchString)
+      if (this.state.searchString.length > 0) {
+        this.handleSearch(this.state.searchString)
+      }
     })
   }
 

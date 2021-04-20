@@ -47,6 +47,14 @@ class App extends Component {
     }, 1000)
   }
 
+  clearSignUpForm = () => {
+    this.setState({
+      email: '',
+      password: '',
+      passwordConfirmation: ''
+    })
+  }
+
   setUser = user => this.setState({ user })
 
   updateUser = user => {
@@ -167,6 +175,7 @@ class App extends Component {
                   email={this.state.email}
                   password={this.state.password}
                   passwordConfirmation={this.state.passwordConfirmation}
+                  clearSignUpForm={this.clearSignUpForm}
                 />
               )} />
               <Route path='/sign-in' render={() => (
