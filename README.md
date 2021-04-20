@@ -1,11 +1,42 @@
 # ExTABER
 
+## Executive Summary
++ Online platform for independent authors and investigative journalists
++ Back-end is entirely based on django, django rest framework, and PostgreSQL
++ CRUDing on 23 views and 5 models
++ Features two many-to-many relationships with two custom through models
++ 100% server-based data handling
++ Dynamic searching, filtering, and sorting across all published articles handled entirely server-side
++ Using Marked and Dompurify to allow authors to provide article content in clean markdown format
+
+### Technologies used on the Front- and Back-End
+Technology | Front-End | Back-End
+--- | --- | ---
+axios | x
+bootstrap | x
+camelcase | x
+CSS/SCSS | x
+dompurify | x
+django | | x
+Heroku | | x
+HTML5 | x
+JavaScript | x
+lodash | x | x
+marked | x
+moment | x
+PostgreSQL | | x
+React | x
+react-reveal | x
+rest framework | | x
+Router-Dom | x
+styled comp. | x
+uuid | x
+
 ## Introduction
 ExTABER is a platform where independent investigative journalists can publish their work, create a readership, and
 potentially monetise their work. The ethos underlying ExTABER is hidden in form of an anagram in its name. The
 anagram is based on the epistemological viewpoint that free thought must exist **Ex** Tradition, **A**authority,
 **E**established **B**relief, and **R**evelation.
-
 
 ## Setup & Installation Instructions
 1. Fork and clone
