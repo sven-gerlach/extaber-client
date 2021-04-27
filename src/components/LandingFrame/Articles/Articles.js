@@ -56,11 +56,11 @@ class Articles extends Component {
     const { articles } = this.state
     if (!articles) {
       return (
-        <Fragment>
+        <SpinnerContainer>
           <Spinner animation='border' role='status'>
             <span className='sr-only'>Loading...</span>
           </Spinner>
-        </Fragment>
+        </SpinnerContainer>
       )
     }
 
@@ -83,6 +83,15 @@ class Articles extends Component {
     )
   }
 }
+
+const SpinnerContainer = styled.div`
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  // set top and left margins to half the width of spinner element
+  margin-top: -1rem; 
+  margin-left: -1rem;
+`
 
 const InputStyled = styled.input`
   width: 100%;
