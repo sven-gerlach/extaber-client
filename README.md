@@ -43,13 +43,13 @@ anagram is based on the epistemological viewpoint that free thought must exist *
 1. npm i
 
 ## Link to Repositories & Deployed Sites
+### Front-End
+The repo can be found on [GitHub](https://github.com/sven-gerlach/extaber-client) whilst the deployed APP is hosted
+on [AWS Amplify](https://main.d33ikcjgiasu7y.amplifyapp.com/)
+
 ### Back-End
 The repo can be found on [GitHub](https://github.com/sven-gerlach/extaber-api) whilst the deployed back-end is hosted
 on [Heroku](https://extaber-api.herokuapp.com/)
-
-### Front-End
-The repo can be found on [GitHub](https://github.com/sven-gerlach/extaber-client) whilst the deployed APP is hosted
-on [GitHub Pages](https://sven-gerlach.github.io/extaber-client/#/)
 
 ## User Stories
 As an unauthenticated user, I’d like to

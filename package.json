@@ -1,6 +1,5 @@
 {
   "name": "extaber-client",
-  "homepage": "https://sven-gerlach.github.io/extaber-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
