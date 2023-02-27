@@ -10,27 +10,27 @@
 + Using Marked and Dompurify to allow authors to provide article content in clean markdown format
 
 ### Technologies used on the Front- and Back-End
-Technology | Front-End | Back-End
---- | --- | ---
-axios | x
-bootstrap | x
-camelcase | x
-CSS/SCSS | x
-dompurify | x
-django | | x
-Heroku | | x
-HTML5 | x
-JavaScript | x
-lodash | x | x
-marked | x
-moment | x
-PostgreSQL | | x
-React | x
-react-reveal | x
-rest framework | | x
-Router-Dom | x
-styled comp. | x
-uuid | x
+| Technology     | Front-End | Back-End |
+|----------------|-----------|----------|
+| axios          | x         |          |
+| bootstrap      | x         |          |
+| camelcase      | x         |          |
+| CSS/SCSS       | x         |          |
+| dompurify      | x         |          |
+| django         |           | x        |
+| Heroku         |           | x        |
+| HTML5          | x         |          |
+| JavaScript     | x         |          |
+| lodash         | x         | x        |
+| marked         | x         |          |
+| moment         | x         |          |
+| PostgreSQL     |           | x        |
+| React          | x         |          |
+| react-reveal   | x         |          |
+| rest framework |           | x        |
+| Router-Dom     | x         |          |
+| styled comp.   | x         |          |
+| uuid           | x         |          |
 
 ## Introduction
 ExTABER is a platform where independent investigative journalists can publish their work, create a readership, and
