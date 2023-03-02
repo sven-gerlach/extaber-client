@@ -49,7 +49,7 @@ on [AWS Amplify](https://main.d33ikcjgiasu7y.amplifyapp.com/)
 
 ### Back-End
 The repo can be found on [GitHub](https://github.com/sven-gerlach/extaber-api) whilst the deployed back-end is hosted
-on [Heroku](https://extaber-api.herokuapp.com/)
+on [Render](https://extaber-api.onrender.com)
 
 ## User Stories
 As an unauthenticated user, I’d like to
